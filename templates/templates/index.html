@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dog Breed AI</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background: linear-gradient(135deg,#6a11cb,#2575fc);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+.container{
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    width:420px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+img{
+    margin-top:20px;
+    width:250px;
+    border-radius:10px;
+}
+
+.bar{
+    height:12px;
+    background:#eee;
+    border-radius:10px;
+    margin-top:5px;
+}
+
+.fill{
+    height:12px;
+    background:#2575fc;
+    border-radius:10px;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    background:#2575fc;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🐶 Dog Breed AI</h1>
+
+<form method="POST" enctype="multipart/form-data">
+<input type="file" name="image" required>
+<br>
+<button type="submit">Predict</button>
+</form>
+
+{% if img_data %}
+
+<h3>Uploaded Image</h3>
+
+<img src="data:image/jpeg;base64,{{img_data}}">
+
+{% endif %}
+
+{% if results %}
+
+<h3>Top Predictions</h3>
+
+{% for dog, prob in results %}
+
+<div>
+<strong>{{dog}}</strong> — {{ "%.2f"|format(prob) }}%
+<div class="bar">
+<div class="fill" style="width: {{prob}}%"></div>
+</div>
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
